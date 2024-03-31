@@ -912,16 +912,15 @@ def get_rootfiles_jpsi(path='/', years=[2016, 2017, 2018]):
             
             # 2D-observables
             #for OBS1 in ['absdxy_sig', 'absdxy']:
-            for OBS1 in ['absdxy_hack']:
+            for OBS1 in ['absdxy_sig']:
                 OBS2 = 'pt'
 
                 # Binning
-                #for BIN1 in [1,2,3]:
-                for BIN1 in [1,2,3,4]:
+                #for BIN1 in [1,2,3,4]:
+                for BIN1 in [1,2,3]:
                     for BIN2 in [1,2,3,4,5]:
                         for PASS in ['Pass', 'Fail']:
-                            #for SYST in ['Nominal', 'nVertices_Up', 'nVertices_Down']:
-                            for SYST in ['Nominal']:
+                            for SYST in ['Nominal', 'nVertices_Up', 'nVertices_Down']:
 
                                 # rootfile = f'{path}/Run{YEAR}/{TYPE}/Nominal/NUM_LooseID_DEN_TrackerMuons_{OBS1}_{OBS2}.root'
                                 # tree     = f'NUM_LooseID_DEN_TrackerMuons_{OBS1}_{BIN1}_{OBS2}_{BIN2}_{PASS}'
@@ -929,11 +928,11 @@ def get_rootfiles_jpsi(path='/', years=[2016, 2017, 2018]):
                                 # rootfile = f'{path}/Run{YEAR}/{TYPE}/Nominal/NUM_MyNum_DEN_MyDen_{OBS1}_{OBS2}.root'
                                 # tree     = f'NUM_MyNum_DEN_MyDen_{OBS1}_{BIN1}_{OBS2}_{BIN2}_{PASS}'
 
-                                # rootfile = f'{path}/Run{YEAR}/{TYPE}/{SYST}/NUM_LooseID_DEN_TrackerMuons_{OBS1}_{OBS2}.root'
-                                # tree     = f'NUM_LooseID_DEN_TrackerMuons_{OBS1}_{BIN1}_{OBS2}_{BIN2}_{PASS}'
+                                rootfile = f'{path}/Run{YEAR}/{TYPE}/{SYST}/NUM_LooseID_DEN_TrackerMuons_{OBS1}_{OBS2}.root'
+                                tree     = f'NUM_LooseID_DEN_TrackerMuons_{OBS1}_{BIN1}_{OBS2}_{BIN2}_{PASS}'
 
-                                rootfile = f'{path}/Run{YEAR}/{TYPE}/{SYST}/NUM_MyNum_DEN_MyDen_{OBS1}_{OBS2}.root'
-                                tree     = f'NUM_MyNum_DEN_MyDen_{OBS1}_{BIN1}_{OBS2}_{BIN2}_{PASS}'
+                                # rootfile = f'{path}/Run{YEAR}/{TYPE}/{SYST}/NUM_MyNum_DEN_MyDen_{OBS1}_{OBS2}.root'
+                                # tree     = f'NUM_MyNum_DEN_MyDen_{OBS1}_{BIN1}_{OBS2}_{BIN2}_{PASS}'
 
                                 file = {'OBS1': OBS1, 'BIN1': BIN1, 'OBS2': OBS2, 'BIN2': BIN2, 'SYST': SYST, 'rootfile': rootfile, 'tree': tree}
                                 files.append(file)
@@ -945,7 +944,7 @@ def get_rootfiles_jpsi(path='/', years=[2016, 2017, 2018]):
     return all_years
 
 
-def run_jpsi_fitpeak(inputfile='tune0.yml', savepath='output_14Dec22/peakfit'):
+def run_jpsi_fitpeak(inputfile='tune0.yml', savepath='output_02Dec22/peakfit'):
     """
     J/psi peak fitting
     """
@@ -1015,7 +1014,7 @@ def run_jpsi_fitpeak(inputfile='tune0.yml', savepath='output_14Dec22/peakfit'):
                 print(f'Fit results saved to: {filename} (pickle) \n\n')
 
 
-def run_jpsi_tagprobe(inputfile='tune0.yml', savepath='./output_14Dec22/peakfit'):
+def run_jpsi_tagprobe(inputfile='tune0.yml', savepath='./output_02Dec22/peakfit'):
     """
     Tag & Probe efficiency (& scale factors)
     """
@@ -1058,12 +1057,12 @@ def run_jpsi_tagprobe(inputfile='tune0.yml', savepath='./output_14Dec22/peakfit'
 
         # Loop over observables -- pick 'data_tag' (both data and mc have the same observables)
         for f in y['info'][data_tag]:
-
             SYST = f['SYST']
+
             # Create savepath
             total_savepath = f'{savepath}/Run{YEAR}/Efficiency/{SYST}'
             if not os.path.exists(total_savepath):
-                os.makedirs(total_savepath)
+                os.makedirs(total_savepath)        
 
             # Pick Pass -- just a pick (both Pass and Fail will be used)
             if '_Pass' in f['tree']:

@@ -9,8 +9,11 @@
 #
 # m.mieskolainen@imperial.ac.uk, 2022
 
-path:     '/home/user/fitdata/flat/muon/generalTracks/JPsi'
-fitrange: [2.91, 3.29] # GeV
+#path:     '/home/user/fitdata/flat/muon/generalTracks/JPsi'
+#path:     '/vols/cms/jd918/LLP/CMSSW_10_2_18/src/TagAndProbe_14Sep22_hack/flat/muon/generalTracks/JPsi'
+path:     '/vols/cms/jd918/LLP/CMSSW_10_2_18/src/TagAndProbe_14Dec22/flat/muon/generalTracks/JPsi'
+fitrange: [2.8, 3.4] # GeV
+years: [2016]
 
 fit:
 
